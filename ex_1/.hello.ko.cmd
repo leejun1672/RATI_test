@@ -1,0 +1,1 @@
+cmd_/home/halab/Projects/RTAI_test/ex_1/hello.ko := ld -r -m elf_x86_64 -T /usr/src/linux-3.8.13/scripts/module-common.lds --build-id  -o /home/halab/Projects/RTAI_test/ex_1/hello.ko /home/halab/Projects/RTAI_test/ex_1/hello.o /home/halab/Projects/RTAI_test/ex_1/hello.mod.o
