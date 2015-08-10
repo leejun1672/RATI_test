@@ -1,0 +1,72 @@
+#!/bin/sh
+
+module=hello2
+
+print() {
+ if [ $verbose ]  ; then dmesg -c; fi
+ echo "====================> $1"
+}
+
+error() {
+ if [ $verbose ]  ; then dmesg -c; fi
+ echo ""
+ echo "       ERROR: $1"
+ echo ""
+}
+
+if [ "$1" == "-h" ]  ; then
+  echo ""  
+  echo "usage:"  
+  echo "  $0 [-v|h] [module]" 
+  echo ""  
+  echo "  module : name of module to load (without .ko extension)"  
+  echo "  -h : prints this message"  
+  echo "  -v : verbose output, useful when not working on console"  
+  echo ""  
+  exit
+fi  
+if [ "$1" == "-v" ]  ; then
+verbose=1    
+shift
+dmesg -c >& /dev/null
+print 'clear buffer' 
+fi
+
+if [ "$1" != "" ]  ; then
+    module=$1
+fi
+
+prefix=`rtai-config --prefix`
+arch=`rtai-config --arch`
+if [ "$prefix" == "" ]; then
+error "please add '<rtai-install>/bin' to your PATH variable"
+exit
+fi
+
+
+print 'loading RTAI Linux if needed...'
+../rtai-insmod.sh
+if [ $? != 0 ]  ; then
+error "please add the location of rtai-insmod.sh to your PATH variable"
+exit
+fi
+
+rmmod $module  >& /dev/null
+
+
+
+print "loading RT task module [${module}.ko] ..."
+insmod ${module}.ko || exit 1
+
+print "waiting 5 seconds..."
+sleep 5
+
+print 'removing RT task...'
+rmmod $module
+
+
+print 'unloading RTAI...'
+rtai-rmmod.sh
+print 'done unloading RTAI'
+
+exit 0
