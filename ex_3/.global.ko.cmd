@@ -1,0 +1,1 @@
+cmd_/home/halab/Projects/RTAI_test/ex_3/global.ko := ld -r -m elf_x86_64 -T /usr/src/linux-3.8.13/scripts/module-common.lds --build-id  -o /home/halab/Projects/RTAI_test/ex_3/global.ko /home/halab/Projects/RTAI_test/ex_3/global.o /home/halab/Projects/RTAI_test/ex_3/global.mod.o
