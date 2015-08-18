@@ -1,0 +1,1 @@
+cmd_/home/halab/Projects/RTAI_ex/ex_4/periodic_task.ko := ld -r -m elf_x86_64 -T /usr/src/linux-3.8.13/scripts/module-common.lds --build-id  -o /home/halab/Projects/RTAI_ex/ex_4/periodic_task.ko /home/halab/Projects/RTAI_ex/ex_4/periodic_task.o /home/halab/Projects/RTAI_ex/ex_4/periodic_task.mod.o
